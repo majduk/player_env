@@ -1,5 +1,4 @@
-require 'service_proxy/base'
-require 'hpricot'
+require 'generic_ws'
 
 class ComponentState 
   
@@ -84,12 +83,11 @@ class ComponentState
     
 end
 
-class ComponentsClient < ServiceProxy::Base
+class ComponentsClient < GenericWsClient
   
   def initialize
-      super(APP_CONFIG[:components_ws_wsdl])
-      @system_name=APP_CONFIG[:components_system_name]
-      self.http.read_timeout = 20
+      super
+      @system_name=@config[:system_name]
   end
 
   def deactivate(params)
