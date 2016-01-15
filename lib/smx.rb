@@ -17,17 +17,25 @@ class ComponentState
     scr=xml.xpath("//setComponentResponse").first
     if @error==false
       if not ccr.blank?
-        @price=ccr.xpath("//billingPrice").first.child.to_s
-        @code=ccr.xpath("//status/code").first.child.to_s.to_i
-        @billing_type=ccr.xpath("//billingType").first.child.to_s
-        @name=ccr.xpath("//name").first.child.to_s
-        @desc=ccr.xpath("//desc").first.child.to_s
-        @message=ccr.xpath("//status/desc").first.child.to_s
+        node=scr.xpath("//billingPrice").first
+        @price=node.child.to_s unless unless node.blank?
+        node=scr.xpath("//status/code").first
+        @code=node.child.to_s unless unless node.blank?
+        node=scr.xpath("//billingType").first
+        @billing_type=node.child.to_s unless unless node.blank?
+        node=scr.xpath("//name").first
+        @name=node.child.to_s unless unless node.blank?
+        node=scr.xpath("//desc").first
+        @desc=node.child.to_s unless unless node.blank?
+        node=scr.xpath("//status/desc").first
+        @message=node.child.to_s unless unless node.blank?
         @activate_available=true unless ccr.xpath("//activateAvailable").first.blank?
         @deactivate_available=true unless ccr.xpath("//deactivateAvailable").first.blank?
       elsif not scr.blank?
-        @price=scr.xpath("//price").first.child.to_s
-        @message=scr.xpath("//postMessage").first.child.to_s
+        node=scr.xpath("//price").first
+        @price=node.child.to_s unless unless node.blank?
+        node=scr.xpath("//postMessage").first
+        @message=node.child.to_s unless unless node.blank?
       else
         @error=true
       end
