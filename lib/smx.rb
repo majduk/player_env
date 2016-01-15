@@ -17,17 +17,17 @@ class ComponentState
     scr=xml.xpath("//setComponentResponse").first
     if @error==false
       if not ccr.blank?
-        node=scr.xpath("//billingPrice").first
+        node=ccr.xpath("//billingPrice").first
         @price=node.child.to_s  unless node.blank?
-        node=scr.xpath("//status/code").first
+        node=ccr.xpath("//status/code").first
         @code=node.child.to_s  unless node.blank?
-        node=scr.xpath("//billingType").first
+        node=ccr.xpath("//billingType").first
         @billing_type=node.child.to_s  unless node.blank?
-        node=scr.xpath("//name").first
+        node=ccr.xpath("//name").first
         @name=node.child.to_s  unless node.blank?
-        node=scr.xpath("//desc").first
+        node=ccr.xpath("//desc").first
         @desc=node.child.to_s  unless node.blank?
-        node=scr.xpath("//status/desc").first
+        node=ccr.xpath("//status/desc").first
         @message=node.child.to_s  unless node.blank?
         @activate_available=true unless ccr.xpath("//activateAvailable").first.blank?
         @deactivate_available=true unless ccr.xpath("//deactivateAvailable").first.blank?
