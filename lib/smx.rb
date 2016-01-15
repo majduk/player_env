@@ -18,24 +18,24 @@ class ComponentState
     if @error==false
       if not ccr.blank?
         node=scr.xpath("//billingPrice").first
-        @price=node.child.to_s unless unless node.blank?
+        @price=node.child.to_s  unless node.blank?
         node=scr.xpath("//status/code").first
-        @code=node.child.to_s unless unless node.blank?
+        @code=node.child.to_s  unless node.blank?
         node=scr.xpath("//billingType").first
-        @billing_type=node.child.to_s unless unless node.blank?
+        @billing_type=node.child.to_s  unless node.blank?
         node=scr.xpath("//name").first
-        @name=node.child.to_s unless unless node.blank?
+        @name=node.child.to_s  unless node.blank?
         node=scr.xpath("//desc").first
-        @desc=node.child.to_s unless unless node.blank?
+        @desc=node.child.to_s  unless node.blank?
         node=scr.xpath("//status/desc").first
-        @message=node.child.to_s unless unless node.blank?
+        @message=node.child.to_s  unless node.blank?
         @activate_available=true unless ccr.xpath("//activateAvailable").first.blank?
         @deactivate_available=true unless ccr.xpath("//deactivateAvailable").first.blank?
       elsif not scr.blank?
         node=scr.xpath("//price").first
-        @price=node.child.to_s unless unless node.blank?
+        @price=node.child.to_s  unless node.blank?
         node=scr.xpath("//postMessage").first
-        @message=node.child.to_s unless unless node.blank?
+        @message=node.child.to_s  unless node.blank?
       else
         @error=true
       end
