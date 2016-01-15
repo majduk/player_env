@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = "player_env"
-  s.version     = "0.2"
+  s.version     = "0.3"
   s.platform    = Gem::Platform::RUBY
   s.summary     = "Player Env"
   s.email       = ""
