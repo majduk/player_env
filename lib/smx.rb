@@ -115,7 +115,6 @@ class ComponentsClient < GenericWsClient
      return executeCheckComponent(params)
   end
   
-  protected
   def executeCheckComponent(p)
     params=p.with_indifferent_access
     result=Rails.cache.fetch("#{self.class.config_name}/#{params[:msisdn]}/short_display/#{params[:short_display]}", force: @no_cache, expires_in: @cache_validity ) do
