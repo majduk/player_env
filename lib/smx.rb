@@ -63,7 +63,13 @@ class ComponentState
       end
       if @code=="4.3" and @message =~ /Usluga w trakcie realizacji/
         return true
-      end      
+      end     
+      if @code=="4.1.3.5"
+        return true
+      end   
+      if @code=="4.1.3.6"
+        return true
+      end         
       return false
   end
 
@@ -71,14 +77,22 @@ class ComponentState
       return (@code==0 or @code==1)
   end
 
+  def set_error?
+      return (
+          @code=="4.1.1.9"  
+        or @code=="4.2.3.1"
+        or @code=="4.2.3.2" 
+        or @code=="4.2.3.3" 
+        or @code=="4.1.3.9" 
+        or @code=="4.1.3.10" 
+        or @code=~/^4.7/ 
+        or @code=="4"
+        )
+  end
+
   def not_permitted?
-      if @code=="4.2.1"
-        return true
-      end
-      if @code=="4.3" and @message =~ /4.6.0/
-        return true
-      end  
-      return false
+      return false if available? or in_transition? or set_error?
+      return true
   end
   
   def activate_available?
