@@ -78,16 +78,7 @@ class ComponentState
   end
 
   def set_error?
-      return (
-          @code=="4.1.1.9"  
-        or @code=="4.2.3.1"
-        or @code=="4.2.3.2" 
-        or @code=="4.2.3.3" 
-        or @code=="4.1.3.9" 
-        or @code=="4.1.3.10" 
-        or @code=~/^4.7/ 
-        or @code=="4"
-        )
+      return (@code=="4.1.1.9" or @code=="4.2.3.1" or @code=="4.2.3.2" or @code=="4.2.3.3" or @code=="4.1.3.9" or @code=="4.1.3.10" or @code=~/^4.7/ or @code=="4" )
   end
 
   def not_permitted?
