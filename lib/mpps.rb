@@ -18,7 +18,6 @@ class MppsSmpWSClient < GenericWsClient
      execute('ACTIVATE',options)
   end
   
-  protected
   def execute(operationType,options)    
     result=performAnOrder( :msisdn => options[:msisdn], :serviceName => options[:service], :operationType => operationType, :imsi => options[:msisdn], :applicationId => @applicationId, :channel => @channel )
     Rails.logger.debug("MppsSmpWSClient.#{operationType}#{options.inspect} returned #{result}")
