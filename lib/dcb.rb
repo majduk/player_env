@@ -149,7 +149,7 @@ class DcbClient < GenericWsClient
         code_node=xml.xpath("//Fault//code").first
         unless code_node.blank?
           code=code_node.child.to_s
-          return OpenStruct.new(error?=>true,:code=>code) unless code=="UNKNOWN_ERROR" 
+          return OpenStruct.new( :error? => true, :code => code) unless code=="UNKNOWN_ERROR" 
         end
     end    
     Rails.logger.debug("DcbClient.#{clazz}: #{response.body}")        
@@ -210,7 +210,7 @@ class DcbClient < GenericWsClient
         code_node=xml.xpath("//Fault//code").first
         unless code_node.blank?
           code=code_node.child.to_s
-          return OpenStruct.new(error?=>true,:code=>code) unless code=="UNKNOWN_ERROR" 
+          return OpenStruct.new( :error? => true, :code => code) unless code=="UNKNOWN_ERROR" 
         end
     end
     Rails.logger.debug("DcbClient.isDCBAllowedResponse: #{response.body}")        
