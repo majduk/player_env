@@ -148,8 +148,16 @@ class DcbClient < GenericWsClient
         xml.remove_namespaces!
         code_node=xml.xpath("//Fault//code").first
         unless code_node.blank?
+          message=xml.xpath("//Fault//message")
+          unless message.blank?
+            message=message.first.child.to_s
+          end          
+          exception=xml.xpath("//Fault//exceptionClass")
+          unless exception.blank?
+            exception=exception.first.child.to_s
+          end
           code=code_node.child.to_s
-          return OpenStruct.new( :error? => true, :code => code) unless code=="UNKNOWN_ERROR" 
+          return OpenStruct.new( :error? => true, :code => code, :message => message, :exception => exception) unless code=="UNKNOWN_ERROR" 
         end
     end    
     Rails.logger.debug("DcbClient.#{clazz}: #{response.body}")        
