@@ -10,6 +10,14 @@ class MppsSmpWSClient < GenericWsClient
       @channel = @config[:channel] unless @config[:channel].blank? 
   end
 
+  def change_msisdn(options)
+     execute('CHANGEMSISDN',options)
+  end
+
+  def change_imsi(options)
+     execute('CHANGEIMSI',options)
+  end
+
   def deactivate(options)
      execute('DEACTIVATE',options)
   end
