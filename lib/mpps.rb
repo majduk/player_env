@@ -209,12 +209,14 @@ class MppsTpuiClient < GenericWsClient
              xml.externalApplicationId options[:externalApplicationId]
        end
   	   xml.serviceCallParams do
+  	     unless options[:params].blank?
           options[:params].each do |key,value|
              xml.params{
               xml.paramKey key
               xml.paramValue value
              }
           end
+        end
        end       
   	 end
     end
@@ -267,7 +269,11 @@ class MppsTpuiClient < GenericWsClient
   
   def parse_provision_service(response)
     r = Nokogiri.XML(response.body).xpath("//resultCode")
-    Rails.logger.debug("MppsTpuiClient result #{r}")
+    if r.blank?
+      Rails.logger.debug("MppsTpuiClient.provisionServiceResponse: #{response.body}")
+      raise Exception.new "MppsTpuiClient.provisionServiceResponse::#{response}"      
+    end  
+    Rails.logger.debug("MppsTpuiClient result code #{r}")
     0 == ( r.xpath("//resultCode").first.child.to_s  =~ /2../ )   
   end
 
