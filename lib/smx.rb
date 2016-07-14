@@ -54,11 +54,11 @@ class ComponentState
   end
   
   def active?
-      return @code==1
+      return @code=="1"
   end
 
   def in_transition?
-      if @code==2
+      if @code=="2"
         return true
       end
       if @code=="4.3" and @message =~ /Usluga w trakcie realizacji/
@@ -74,7 +74,7 @@ class ComponentState
   end
 
   def available?
-      return (@code==0 or @code==1)
+      return (@code=="0" or @code=="1")
   end
 
   def set_error?
