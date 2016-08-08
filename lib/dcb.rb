@@ -19,9 +19,16 @@ class DcbClient < GenericWsClient
 
   def dcb_charge(p)
     params=p.with_indifferent_access
-    unless @config[:forcedOpenItemId].blank?
-      params[:openItemId]=@config[:forcedOpenItemId]
-    emd
+    unless @config[:forced_open_item_id].blank?
+      params[:openItemId]=@config[:forced_open_item_id]
+    end
+    if params[:openItemId].blank? and not @config[:default_open_item_id].blank?
+      params[:openItemId]=@config[:default_open_item_id]
+    end   
+    if params[:type].blank? and not @config[:default_type].blank?
+      params[:type]=@config[:default_type]
+    end       
+    
     params=@config.merge params
     result=DCBCharge(params)             
     Rails.logger.debug("DcbClient.DCBCharge(#{params.inspect}) returned #{result.inspect}")
