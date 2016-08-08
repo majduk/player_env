@@ -19,6 +19,9 @@ class DcbClient < GenericWsClient
 
   def dcb_charge(p)
     params=p.with_indifferent_access
+    unless @config[:forcedOpenItemId].blank?
+      params[:openItemId]=@config[:forcedOpenItemId]
+    emd
     params=@config.merge params
     result=DCBCharge(params)             
     Rails.logger.debug("DcbClient.DCBCharge(#{params.inspect}) returned #{result.inspect}")
@@ -92,7 +95,7 @@ class DcbClient < GenericWsClient
         build_system_identifier xml
         build_out_tag options, xml
         build_effectiveDate_tag options, xml 
-        [:type, :cancellable,:net,:tax,:gross,:title,:contactInfo].each do |tag_name|
+        [:type, :cancellable,:net,:tax,:gross,:title,:contactInfo,:openItemId].each do |tag_name|
           xml.tag!("dcb:#{tag_name}",options[tag_name]) unless options[tag_name].blank? 
         end                    
   	 end
