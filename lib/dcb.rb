@@ -5,7 +5,6 @@ class DcbClient < GenericWsClient
   def initialize      
       super
       @system_identifier={:userName => @config[:system_name], :systemName => @config[:system_name]}
-      @no_cache=true
   end
 
   def is_dcb_allowed?(p)
