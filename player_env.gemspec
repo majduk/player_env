@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = "player_env"
-  s.version     = "1.3"
+  s.version     = "1.4"
   s.platform    = Gem::Platform::RUBY
   s.summary     = "Player Env"
   s.email       = ""
@@ -11,6 +11,6 @@ Gem::Specification.new do |s|
   s.files         = `git ls-files`.split("\n")
   s.require_paths = ["lib"]
 
-  s.add_dependency("serviceproxy")
+  s.add_dependency("serviceproxy",'0.2.1')
   s.add_dependency("hpricot")
 end
