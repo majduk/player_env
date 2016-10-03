@@ -3,6 +3,20 @@ require 'hpricot'
 
 class GenericWsClient < ServiceProxy::Base
 
+  module ServiceProxy
+    class Base  
+      def parse_wsdl
+        parser = ServiceProxy::Parser.new
+        sax_parser = Nokogiri::XML::SAX::Parser.new(parser)
+        sax_parser.parse(self.wsdl)
+        self.service_methods = parser.service_methods.sort
+        self.target_namespace = parser.target_namespace
+        self.soap_actions = parser.soap_actions
+        raise RuntimeError, "Could not parse WSDL" if self.service_methods.empty?
+      end      
+    end
+  end
+  
   def self.enabled?
     return ((not config.blank?) and (not config[:wsdl].blank?))
   end
