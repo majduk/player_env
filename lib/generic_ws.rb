@@ -1,21 +1,22 @@
 require 'service_proxy/base'
 require 'hpricot'
 
-class GenericWsClient < ServiceProxy::Base
-
-  module ServiceProxy
+module ServiceProxy
     class Base
       private
       def get_wsdl
-        Rails.logger.debug("get wsdl")
+        Rails.logger.debug("Initializing web service client")
         self.wsdl=Rails.cache.fetch("#{self.class.config_name}/wsdl", force: @no_cache, expires_in: @cache_validity ) do
           Rails.logger.debug("Downloading WSDL from #{self.uri.path}?#{self.uri.query}")
           response = self.http.get("#{self.uri.path}?#{self.uri.query}")
           response.body
-        end                  
-      end      
+        end
+      end
     end
-  end
+end
+
+
+class GenericWsClient < ServiceProxy::Base
   
   def self.enabled?
     return ((not config.blank?) and (not config[:wsdl].blank?))
