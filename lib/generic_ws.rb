@@ -7,6 +7,7 @@ class GenericWsClient < ServiceProxy::Base
     class Base
       def get_wsdl
         self.wsdl=Rails.cache.fetch("#{self.class.config_name}/wsdl", force: @no_cache, expires_in: @cache_validity ) do
+          Rails.logger.debug("Downloading WSDL from #{self.uri.path}?#{self.uri.query}")
           response = self.http.get("#{self.uri.path}?#{self.uri.query}")
           response.body
         end                  
