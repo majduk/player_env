@@ -11,19 +11,19 @@ class MppsSmpWSClient < GenericWsClient
   end
 
   def change_msisdn(options)
-     execute('CHANGEMSISDN',options)
+     execute('CHANGEMSISDN',options.with_indifferent_access)
   end
 
   def change_imsi(options)
-     execute('CHANGEIMSI',options)
+     execute('CHANGEIMSI',options.with_indifferent_access)
   end
 
   def deactivate(options)
-     execute('DEACTIVATE',options)
+     execute('DEACTIVATE',options.with_indifferent_access)
   end
 
   def activate(options)
-     execute('ACTIVATE',options)
+     execute('ACTIVATE',options.with_indifferent_access)
   end
   
   def execute(operationType,options)    
@@ -79,15 +79,15 @@ class MppsCustomerCareWSClient < GenericWsClient
   end
 
   def log_info(options)     
-    execute("INFO", "1", options)
+    execute("INFO", "1", options.with_indifferent_access)
   end
   
   def log_error(options)     
-    execute("ERROR", "1", options)
+    execute("ERROR", "1", options.with_indifferent_access)
   end
   
   def log_pending(options)     
-    execute("PENDING", "1", options)
+    execute("PENDING", "1", options.with_indifferent_access)
   end  
   
   def execute(state,accessLevel,options)
@@ -155,15 +155,15 @@ class MppsTpuiClient < GenericWsClient
     @app_id=@config[:app_id]
   end
   def deactivate(params)
-     execute('DEACTIVATE',params)
+     execute('DEACTIVATE',params.with_indifferent_access)
   end
 
   def activate(params)
-     execute('ACTIVATE',params)
+     execute('ACTIVATE',params.with_indifferent_access)
   end
 
   def modify(params)
-     execute('MODIFY',params)
+     execute('MODIFY',params.with_indifferent_access)
   end
 
   def service(params)
