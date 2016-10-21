@@ -245,7 +245,8 @@ class MppsTpuiClient < GenericWsClient
         prof=OpenStruct.new(:error? => false)
         xml.xpath("//userServices").each do |service|      
           n=service.xpath("serviceName").first.child.to_s
-          active=service.xpath("status").first.child.to_s=="ACTIVE"
+          status=service.xpath("status").first.child.to_s
+          active=status=="ACTIVE"
           params={}.with_indifferent_access                       
           service.xpath("serviceParams").each do |param|
             key=param.xpath("paramKey").first.child.to_s
@@ -254,6 +255,7 @@ class MppsTpuiClient < GenericWsClient
           end
           prof[n]=OpenStruct.new(
             :active? => active,
+            :status => status,
             :params => params
           )
         end
