@@ -165,7 +165,24 @@ class DcbClient < GenericWsClient
           unless exception.blank?
             exception=exception.first.child.to_s
           end
-          code=code_node.child.to_s
+          case code_node.child.to_s
+            when "4.1.1"
+              code="4.1.1_NO_TX_NO_ANNOTATION"
+            when "4.1.2"
+              code="4.1.2_INVALID_USER"
+            when "4.7"
+              code="4.7_UNKNOWN_ERROR"
+            when "4.2.1"
+              code="4.2.1_INVALID_CHARGE"
+            when "4.2.2"
+              code="4.2.2_CHARGE_EXCEEDS_LIMIT"
+            when "4"
+              code="4_UNKNOWN_ERROR"
+            when "4.3"
+              code="4.3_CANNOT_COMPLETE"
+            else
+              code=code_node.child.to_s
+          end
           return OpenStruct.new( :error? => true, :code => code, :message => message, :exception => exception) unless code=="UNKNOWN_ERROR" 
         end
     end    
